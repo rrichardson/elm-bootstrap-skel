@@ -3464,8 +3464,10 @@ Elm.Client.make = function (_elm) {
    $moduleName = "Client",
    $Basics = Elm.Basics.make(_elm),
    $Bootstrap$Html = Elm.Bootstrap.Html.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
    $Html$Lazy = Elm.Html.Lazy.make(_elm),
    $Html$Shorthand = Elm.Html.Shorthand.make(_elm),
    $List = Elm.List.make(_elm),
@@ -3493,38 +3495,6 @@ Elm.Client.make = function (_elm) {
                                    ,A2($VirtualDom.attribute,
                                    "data-target",
                                    ".navbar-collapse")]);
-   var navb = F2(function (addr,
-   model) {
-      return A2($Bootstrap$Html.navbar$,
-      "navbar navbar-inverse navbar-static-top",
-      _L.fromArray([$Bootstrap$Html.containerFluid_(_L.fromArray([$Bootstrap$Html.navbarHeader_(_L.fromArray([A2($Html$Shorthand.a$,
-                                                                                                             {_: {}
-                                                                                                             ,$class: "navbar-brand"
-                                                                                                             ,href: "#"},
-                                                                                                             _L.fromArray([$Html.text("Elm Bootstrap Skeleton")]))
-                                                                                                             ,A2($Html.button,
-                                                                                                             cButtonAttrs,
-                                                                                                             hamburger)]))
-                                                                 ,A2($Html.div,
-                                                                 _L.fromArray([$Html$Attributes.$class("navbar-collapse collapse")]),
-                                                                 _L.fromArray([A2($Html.ul,
-                                                                 _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
-                                                                 _L.fromArray([$Html$Shorthand.li_(_L.fromArray([A2($Html$Shorthand.a$,
-                                                                              {_: {}
-                                                                              ,$class: "active"
-                                                                              ,href: "#"},
-                                                                              _L.fromArray([$Html.text("Page 1")]))]))
-                                                                              ,$Html$Shorthand.li_(_L.fromArray([A2($Html$Shorthand.a$,
-                                                                              {_: {}
-                                                                              ,$class: ""
-                                                                              ,href: "#"},
-                                                                              _L.fromArray([$Html.text("Page 2")]))]))
-                                                                              ,$Html$Shorthand.li_(_L.fromArray([A2($Html$Shorthand.a$,
-                                                                              {_: {}
-                                                                              ,$class: ""
-                                                                              ,href: "#"},
-                                                                              _L.fromArray([$Html.text("Sign In")]))]))]))]))]))]));
-   });
    var signin = F2(function (addr,
    model) {
       return A2($Html$Shorthand.div$,
@@ -3564,18 +3534,8 @@ Elm.Client.make = function (_elm) {
               addr,
               model);}
          _U.badCase($moduleName,
-         "between lines 57 and 60");
+         "between lines 61 and 64");
       }();
-   });
-   var view = F2(function (addr,
-   model) {
-      return $Bootstrap$Html.containerFluid_(_L.fromArray([A3($Html$Lazy.lazy2,
-                                                          navb,
-                                                          addr,
-                                                          model)
-                                                          ,A2(getInner,
-                                                          addr,
-                                                          model)]));
    });
    var update = F2(function (act,
    model) {
@@ -3594,17 +3554,75 @@ Elm.Client.make = function (_elm) {
                                ,"signin"]],
               model);}
          _U.badCase($moduleName,
-         "between lines 38 and 41");
+         "between lines 42 and 45");
       }();
    });
-   var initialModel = {_: {}
-                      ,page: "page1"};
    var Model = function (a) {
       return {_: {},page: a};
    };
    var NavPage2 = {ctor: "NavPage2"};
    var NavPage1 = {ctor: "NavPage1"};
    var actions = $Signal.mailbox(NavPage1);
+   var NavSignIn = {ctor: "NavSignIn"};
+   var navb = F2(function (addr,
+   model) {
+      return A2($Bootstrap$Html.navbar$,
+      "navbar navbar-inverse navbar-static-top",
+      _L.fromArray([$Bootstrap$Html.containerFluid_(_L.fromArray([$Bootstrap$Html.navbarHeader_(_L.fromArray([A2($Html$Shorthand.a$,
+                                                                                                             {_: {}
+                                                                                                             ,$class: "navbar-brand"
+                                                                                                             ,href: "#"},
+                                                                                                             _L.fromArray([$Html.text("Elm Bootstrap Skeleton")]))
+                                                                                                             ,A2($Html.button,
+                                                                                                             cButtonAttrs,
+                                                                                                             hamburger)]))
+                                                                 ,A2($Html.div,
+                                                                 _L.fromArray([$Html$Attributes.$class("navbar-collapse collapse")]),
+                                                                 _L.fromArray([A2($Html.ul,
+                                                                 _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
+                                                                 _L.fromArray([$Html$Shorthand.li_(_L.fromArray([A2($Html.a,
+                                                                              _L.fromArray([$Html$Attributes.$class("active")
+                                                                                           ,$Html$Attributes.href("#/page1")
+                                                                                           ,A2($Html$Events.onClick,
+                                                                                           addr,
+                                                                                           NavPage1)]),
+                                                                              _L.fromArray([$Html.text("Page 1")]))]))
+                                                                              ,$Html$Shorthand.li_(_L.fromArray([A2($Html.a,
+                                                                              _L.fromArray([$Html$Attributes.$class("")
+                                                                                           ,$Html$Attributes.href("#/page2")
+                                                                                           ,A2($Html$Events.onClick,
+                                                                                           addr,
+                                                                                           NavPage2)]),
+                                                                              _L.fromArray([$Html.text("Page 2")]))]))
+                                                                              ,$Html$Shorthand.li_(_L.fromArray([A2($Html.a,
+                                                                              _L.fromArray([$Html$Attributes.$class("")
+                                                                                           ,$Html$Attributes.href("#/signin")
+                                                                                           ,A2($Html$Events.onClick,
+                                                                                           addr,
+                                                                                           NavSignIn)]),
+                                                                              _L.fromArray([$Html.text("Sign In")]))]))]))]))]))]));
+   });
+   var view = F2(function (addr,
+   model) {
+      return $Bootstrap$Html.containerFluid_(_L.fromArray([A3($Html$Lazy.lazy2,
+                                                          navb,
+                                                          addr,
+                                                          model)
+                                                          ,A2(getInner,
+                                                          addr,
+                                                          model)]));
+   });
+   var initialLocation = Elm.Native.Port.make(_elm).inbound("initialLocation",
+   "String",
+   function (v) {
+      return typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",
+      v);
+   });
+   var initialModel = {_: {}
+                      ,page: _U.eq(A2($Debug.log,
+                      "loc:",
+                      initialLocation),
+                      "") ? "page1" : initialLocation};
    var model = A3($Signal.foldp,
    update,
    initialModel,
@@ -3612,7 +3630,6 @@ Elm.Client.make = function (_elm) {
    var main = A2($Signal.map,
    view(actions.address),
    model);
-   var NavSignIn = {ctor: "NavSignIn"};
    _elm.Client.values = {_op: _op
                         ,NavSignIn: NavSignIn
                         ,NavPage1: NavPage1

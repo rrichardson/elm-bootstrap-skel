@@ -1,18 +1,20 @@
 module Client where
 
-import Html exposing (div, ul, span, button, Attribute)
+import Html exposing (div, ul, span, button, Attribute, a)
 import Html.Lazy exposing (lazy2)
-import Html.Events as Html
-import Html.Attributes as Html exposing (class, type')
+import Html.Events as Html exposing (onClick)
+import Html.Attributes as Html exposing (class, type', href)
 import Html.Shorthand exposing (..)
 import Bootstrap.Html exposing (..)
 import Html exposing (blockquote)
 import Html exposing (Html, text, toElement, fromElement)
 import Signal exposing (Address)
 import VirtualDom exposing (attribute)
+import Debug exposing (log)
 --
 -- Model
 --
+port initialLocation : String
 
 type Action =
             NavSignIn
@@ -24,7 +26,9 @@ type alias Model = {
 }
 
 initialModel : Model
-initialModel = { page = "page1" }
+initialModel =
+    { page = if (log "loc:" initialLocation) == ""
+                then "page1" else initialLocation }
 
 --
 -- Plumbing
@@ -86,9 +90,9 @@ navb addr model =
                 , button cButtonAttrs hamburger ]
             , div [ class "navbar-collapse collapse" ]
                 [ul [ class "nav navbar-nav navbar-right" ]
-                    [ li_ [a' { class = "active", href="#" } [ text "Page 1" ]]
-                    , li_ [a' { class = "", href="#" } [ text "Page 2" ]]
-                    , li_ [a' { class = "", href="#" } [ text "Sign In" ]]
+                    [ li_ [a [ class "active", href "#/page1", onClick addr NavPage1 ] [ text "Page 1" ]]
+                    , li_ [a [ class "", href "#/page2", onClick addr NavPage2  ] [ text "Page 2" ]]
+                    , li_ [a [ class "", href "#/signin", onClick addr NavSignIn ] [ text "Sign In" ]]
                     ]
                 ]
             ]

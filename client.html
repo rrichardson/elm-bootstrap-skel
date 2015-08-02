@@ -33,7 +33,7 @@
 
   <body>
     <script type="text/javascript">
-        var app = Elm.fullscreen(Elm.Client);
+        var app = Elm.fullscreen(Elm.Client, { initialLocation: window.location.hash.substring(2) });
     </script>
   </body>
 </html>
