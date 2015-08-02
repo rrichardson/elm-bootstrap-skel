@@ -1,13 +1,15 @@
-import Html
+module Client where
+
+import Html exposing (div, ul, span, button, Attribute)
 import Html.Lazy exposing (lazy2)
 import Html.Events as Html
-import Html.Attributes as Html
+import Html.Attributes as Html exposing (class, type')
 import Html.Shorthand exposing (..)
 import Bootstrap.Html exposing (..)
 import Html exposing (blockquote)
 import Html exposing (Html, text, toElement, fromElement)
 import Signal exposing (Address)
-
+import VirtualDom exposing (attribute)
 --
 -- Model
 --
@@ -65,23 +67,44 @@ view addr model =
 
 
 page1 : Address Action -> Model -> Html
-page1 addr model = text "page one"
+page1 addr model = div' { class="jumbotron" } [ h2_ "Page One" ]
 
 
 page2 : Address Action -> Model -> Html
-page2 addr model = text "page two"
+page2 addr model = div' { class="jumbotron" } [ h2_ "Page Two" ]
 
 
 signin : Address Action -> Model -> Html
-signin addr model = text "sign up"
+signin addr model = div' { class="jumbotron" } [ h2_ "Sign In" ]
 
 navb : Address Action -> Model -> Html
 navb addr model =
-    navbar' "navbar navbar-inverted navbar-static-top"
-        [ navbarHeader_ [ text "Elm Bootstrap Skeleton" ]
-        , ul' { class = "nav navbar-nav" }
-            [ a' { class = "active", href="#" } [ text "Page 1" ]
-            , a' { class = "", href="#" } [ text "Page 2" ]
-            , a' { class = "", href="#" } [ text "Sign In" ]
+    navbar' "navbar navbar-inverse navbar-static-top"
+        [containerFluid_
+            [ navbarHeader_
+                [ a' {class="navbar-brand", href="#"} [text "Elm Bootstrap Skeleton" ]
+                , button cButtonAttrs hamburger ]
+            , div [ class "navbar-collapse collapse" ]
+                [ul [ class "nav navbar-nav navbar-right" ]
+                    [ li_ [a' { class = "active", href="#" } [ text "Page 1" ]]
+                    , li_ [a' { class = "", href="#" } [ text "Page 2" ]]
+                    , li_ [a' { class = "", href="#" } [ text "Sign In" ]]
+                    ]
+                ]
             ]
         ]
+
+cButtonAttrs : List Attribute
+cButtonAttrs =
+          [ type' "button"
+          , class "navbar-toggle"
+          , attribute "data-toggle" "collapse"
+          , attribute "data-target" ".navbar-collapse"]
+
+hamburger : List Html
+hamburger =
+    [ span [class "sr-only"] []
+    , span [class "icon-bar"] []
+    , span [class "icon-bar"] []
+    , span [class "icon-bar"] []
+    ]
